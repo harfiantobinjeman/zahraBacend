@@ -1,9 +1,9 @@
 import { Sequelize } from "sequelize";
 
-const db = new Sequelize ('abk', 'root', '', {
+const db = new Sequelize ('antrian_db', 'root', '', {
     host:"localhost",
     dialect:"mysql",
-    timezone: '+7:30',
+    timezone: '+05:30',
 });
 
 export default db;
