@@ -36,7 +36,7 @@ const AntrianDMModels = db.define('antrianDM',{
         }
     },
     idLoket:{
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: true,
         validate:{
             notEmpty:false,

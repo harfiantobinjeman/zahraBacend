@@ -8,9 +8,9 @@ import AntrianMRoute from "./routes/AntrianMRoute.js";
 import AntrianDMRoute from "./routes/AntrianDMRoute.js";
 import LoketRoute from "./routes/LoketRoute.js";
 import SequelizeStore from "connect-session-sequelize";
-// //soket.io
-// import { Server } from "socket.io";
-// import http from "http"
+//soket.io
+import { Server } from "socket.io";
+import http from "http"
 
 
 
@@ -19,7 +19,7 @@ dotenv.config();
 const app = express();
 
 //soket.io
-//const server = http.createServer(app);
+const server = http.createServer(app);
 //const io = new Server(server)
 
 (async()=>{
@@ -40,20 +40,20 @@ app.use(session({
         secure:'auto'
     }
 }))
-//di gantikan dengan soket.io
-app.use(cors({
-    credentials:true,
-    origin: '*',
-    allowedHeaders:'*'
-}));
+// //di gantikan dengan soket.io
+// app.use(cors({
+//     credentials:true,
+//     origin: '*',
+//     allowedHeaders:'*'
+// }));
 
 //ini Soket.io
-// const io = new Server(server,{
-//     cors:{
-//         origin :'http://localhost:3000' ,
-//         methods:["GET","POST","PATCH","DELETE"]
-//     },
-// })
+const io = new Server(server,{
+    cors:{
+        origin :'http://localhost:3000' ,
+        methods:["GET","POST","PATCH","DELETE"]
+    },
+})
 
 app.use(express.json());
 
@@ -64,11 +64,11 @@ app.use(LoketRoute);
 
 store.sync();
 
-//DIGANTIKAN DENGAN SOKET.IO
-app.listen(process.env.APP_PORT, ()=>{
-    console.log('Server Sedang Berjalan ........');
-});
-
-// server.listen(process.env.APP_PORT,()=>{
+// //DIGANTIKAN DENGAN SOKET.IO
+// app.listen(process.env.APP_PORT, ()=>{
 //     console.log('Server Sedang Berjalan ........');
-// })
+// });
+
+server.listen(process.env.APP_PORT,()=>{
+    console.log('Server Sedang Berjalan ........');
+})
